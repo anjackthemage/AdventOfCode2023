@@ -1,4 +1,17 @@
-# Solution for Advent of Code 2023 Day 1
+# Solution for Advent of Code 2023 Day 1 parts 1 & 2
+
+# This script was written using GitHub Copilot.
+# The following comments were provided directly by Copilot and may indicate the original author of the code used to generate this script.
+# **********************************************************************************************************************
+# Desc: Solution for Day 1 of Advent of Code 2020
+# Date: 12/1/2020
+# Auth: Brent Williams
+# Lang: Python
+
+# This is my first time doing Advent of Code, so I'm going to try and do it in Python.
+# I'm also going to try and do it in a way that I can use it as a reference for later.
+# I'm not sure if I'll be able to do that, but I'm going to try.
+# **********************************************************************************************************************
 
 import getopt
 import sys
