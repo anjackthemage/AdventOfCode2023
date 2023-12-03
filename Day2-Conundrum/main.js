@@ -27,7 +27,6 @@ class RoundResult {
     red = 0;
     green = 0;
     blue = 0;
-    
 
     constructor(red, green, blue) {
         this.red = red;
@@ -61,20 +60,36 @@ class GameResult {
     rounds = [];
     MaxResults = new RoundResult(12, 13, 14);
     isValid = true;
+    power = Number.MAX_SAFE_INTEGER;
 
     constructor(id, rounds) {
         this.id = id;
         this.rounds = rounds;
 
+        let mostRed = 0;
+        let mostGreen = 0;
+        let mostBlue = 0;
+
         if (rounds.length > 0) {
             rounds.forEach(round => {
                 this.isValid = this.isValid && round.isValid(this.MaxResults.red, this.MaxResults.green, this.MaxResults.blue);
+                if (round.red > mostRed) {
+                    mostRed = round.red;
+                }
+                if (round.green > mostGreen) {
+                    mostGreen = round.green;
+                }
+                if (round.blue > mostBlue) {
+                    mostBlue = round.blue;
+                }
             })
         }
+
+        this.power = mostRed * mostGreen * mostBlue;
     }
 
     toString() {
-        return `id: ${this.id}, isValid: ${this.isValid} rounds: ${this.rounds}`;
+        return `id: ${this.id}, isValid: ${this.isValid} rounds: ${this.rounds}\npower: ${this.power}`;
     }
 }
 
@@ -119,13 +134,16 @@ readStream.on('data', (chunk) => {
 readStream.on('end', () => {
     console.log('File reading completed.');
     let IDsum = 0;
+    let POWsum = 0;
     gameResults.forEach((gameResult) => {
         if (gameResult.isValid) {
             console.log(gameResult.toString());
             IDsum += gameResult.id;
         }
+        POWsum += gameResult.power;
     });
     console.log(`IDsum: ${IDsum}`);
+    console.log(`POWsum: ${POWsum}`);
 });
 
 readStream.on('error', (err) => {
